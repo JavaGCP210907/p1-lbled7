@@ -15,23 +15,20 @@ public class LoginController {
 	
 	public Handler loginHandler = (ctx) -> {
 	
-		String body = ctx.body(); //turn the data of the POST request into a Java string
+		String body = ctx.body(); 
 		
 		Gson gson = new Gson();
 		
-		LoginDTO LDTO = gson.fromJson(body, LoginDTO.class); //turn that JSON string into a LoginDTO object
-		
-		//control flow to determine what happens in the event of a successful/unsuccessful login
+		LoginDTO LDTO = gson.fromJson(body, LoginDTO.class); 
 		
 		
-		//invoke the login() method of LoginService using the username and password of the newly created DTO
+		
+		
 		if(ls.login(LDTO.getUsername(), LDTO.getPassword())) {
-			//grant the user some privileges
-			//generate a JSON web token to uniquely identify the user
+			
 			String jwt = JwtUtil.generate(LDTO.getUsername(), LDTO.getPassword());
 			
-			//create a user session
-			HttpSession session = ctx.req.getSession();//req is a "Request Object", we establish sessions through it
+			HttpSession session = ctx.req.getSession();
 			session.setAttribute("username",LDTO.getUsername());
 			//successful status code
 			ctx.status(200);
@@ -40,10 +37,9 @@ public class LoginController {
 		} else {
 			
 			ctx.status(401); //unauthorized status code
-			ctx.result("Login Failed! :(");
+			ctx.result("Login Failed!");
 		}
 		
-		//making a LoginDTO will get back to you...
 };
 
 }

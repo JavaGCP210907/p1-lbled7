@@ -35,4 +35,18 @@ public class EmployeeController {
 				}
 			
 };
+
+	public Handler addReimbursementRequestHandler = (ctx) ->{
+		if(ctx.req.getSession(false)!=null) {
+			String username = (String) ctx.req.getAttribute("username");
+			String body = ctx.body();
+			Gson gson = new Gson();
+			Ticket ticket =gson.fromJson(body, Ticket.class);
+			es.addReimbursementRequest(ticket);
+			ctx.status(201);
+		}
+		else {
+			ctx.status(403);
+		}
+	};
 }

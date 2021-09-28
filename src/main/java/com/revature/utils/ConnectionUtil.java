@@ -17,7 +17,7 @@ public class ConnectionUtil {
 		}
 		
 		
-		String url = System.getenv("URL");
+		String url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=reimbursement";
 		String username = System.getenv("USERNAME");
 		String password = System.getenv("PASSWORD");
 		
