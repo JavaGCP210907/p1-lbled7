@@ -17,8 +17,10 @@ public class EmployeeController {
 			(ctx) ->  {
 				
 				if(ctx.req.getSession(false)!=null) {
-					String userName = (String) ctx.req.getAttribute("username");
+					String userName = (String) ctx.req.getSession().getAttribute("username");
+					
 					List<Ticket> ticketList = es.viewPastTicketsByEmployee(userName);
+					
 					if(ticketList.isEmpty()) {
 						ctx.result("No tickets found!");
 						ctx.status(404);
@@ -38,12 +40,17 @@ public class EmployeeController {
 
 	public Handler addReimbursementRequestHandler = (ctx) ->{
 		if(ctx.req.getSession(false)!=null) {
-			String username = (String) ctx.req.getAttribute("username");
+			String username = (String) ctx.req.getSession().getAttribute("username");
+			
 			String body = ctx.body();
-			Gson gson = new Gson();
+			try{Gson gson = new Gson();
 			Ticket ticket =gson.fromJson(body, Ticket.class);
 			es.addReimbursementRequest(ticket);
-			ctx.status(201);
+			ctx.status(201);}
+			catch(NumberFormatException e) {
+				e.printStackTrace();
+			}
+			
 		}
 		else {
 			ctx.status(403);

@@ -16,11 +16,11 @@ public class EmployeeDao implements EmployeeInterface {
 	@Override
 	public List<Ticket> viewPastTicketsByEmployee(String userName){
 		try(Connection conn = ConnectionUtil.getConnection()){
-			String sql = "select * from ers_reimbursement as reimb join ers_users as" 
-					+ "users on reimb.reimb_author = users.ers_users_id"
-					 + "JOIN ers_reimbursement_type AS reimb_type"
-					 + "ON reimb.reimb_type_id = reimb_type.reimb_type_id"
-					 +  "JOIN ers_reimbursement_status AS status"
+			String sql = "select * from ers_reimbursement as reimb join users as" 
+					+ " users on reimb.reimb_author = users.ers_users_id"
+					 + " JOIN ers_reimbursement_type AS reimb_type"
+					 + " ON reimb.reimb_type_id = reimb_type.reimb_type_id"
+					 +  " JOIN ers_reimbursement_status AS status"
 					 + " ON reimb.reimb_status_id = status.reimb_status_id"
 					 + " where users.ers_username = ?;";
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -30,8 +30,8 @@ public class EmployeeDao implements EmployeeInterface {
 			while(rs.next()) {
 				Ticket t =  new Ticket(
 						rs.getDouble(2),
-						rs.getDate(3),
-						rs.getDate(4),
+						rs.getString(3),
+						rs.getString(4),
 						rs.getString(5),
 						rs.getString(6),
 						rs.getString(21),
@@ -57,11 +57,11 @@ try(Connection conn = ConnectionUtil.getConnection()){
 					+ "values (?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setDouble(1, ticket.getReimb_amount());
-			ps.setDate(2, ticket.getReimb_submitted());
+			ps.setString(2, String.valueOf(ticket.getReimb_submitted()));
 			ps.setString(3, ticket.getReimb_description());
 			ps.setString(4,ticket.getReimb_receipt());
-			ps.setInt(5, ticket.getStatusId());
-			ps.setInt(6, 3);
+			ps.setInt(5, 1);
+			ps.setInt(6, ticket.getTypeId());
 			ps.executeUpdate();
 			System.out.println("Ticket added successfully");
 			return true;

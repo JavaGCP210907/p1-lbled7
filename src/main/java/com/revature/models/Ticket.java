@@ -1,16 +1,30 @@
 package com.revature.models;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Ticket {
+	private int id;
 	private double reimb_amount;
-	private Date reimb_submitted;
-	private Date reimb_resolved;
+	private String reimb_submitted;
+	private String reimb_resolved;
 	private String reimb_description;
 	private String reimb_receipt;
 	private String reimb_status;
 	private String reimb_type;
 	
+	public Ticket(double reimb_amount, String reimb_submitted, String reimb_resolved, String reimb_description,
+			String reimb_receipt, String reimb_status, String reimb_type) {
+		super();
+		this.reimb_amount = reimb_amount;
+		this.reimb_submitted = reimb_submitted;
+		this.reimb_resolved = reimb_resolved;
+		this.reimb_description = reimb_description;
+		this.reimb_receipt = reimb_receipt;
+		this.reimb_status = reimb_status;
+		this.reimb_type = reimb_type;
+	}
+
 	public Ticket() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -93,20 +107,31 @@ public class Ticket {
 			return false;
 		return true;
 	}
+	
 
 
-
-	public Ticket(double reimb_amount, Date reimb_submitted, Date reimb_resolved, String reimb_description,
-			String reimb_receipt, String reimb_status, String reimb_type) {
+	public Ticket(double reimb_amount, String reimb_description, String reimb_receipt, String reimb_type) {
 		super();
 		this.reimb_amount = reimb_amount;
-		this.reimb_submitted = reimb_submitted;
-		this.reimb_resolved = reimb_resolved;
+		this.reimb_submitted = String.valueOf(LocalDate.now());
 		this.reimb_description = reimb_description;
 		this.reimb_receipt = reimb_receipt;
-		this.reimb_status = reimb_status;
+		this.reimb_status = "Pending";
 		this.reimb_type = reimb_type;
 	}
+
+	public Ticket(double reimb_amount, String reimb_submitted, LocalDate reimb_resolved, String reimb_description,
+			String reimb_receipt, String reimb_type) {
+		super();
+		this.reimb_amount = reimb_amount;
+		this.reimb_submitted =String.valueOf(LocalDate.now());
+		this.reimb_resolved = null;
+		this.reimb_description = reimb_description;
+		this.reimb_receipt = reimb_receipt;
+		this.reimb_status = "Pending";
+		this.reimb_type = reimb_type;
+	}
+
 
 
 
@@ -124,16 +149,16 @@ public class Ticket {
 	public void setReimb_amount(double reimb_amount) {
 		this.reimb_amount = reimb_amount;
 	}
-	public Date getReimb_submitted() {
+	public String getReimb_submitted() {
 		return reimb_submitted;
 	}
-	public void setReimb_submitted(Date reimb_submitted) {
+	public void setReimb_submitted(String reimb_submitted) {
 		this.reimb_submitted = reimb_submitted;
 	}
-	public Date getReimb_resolved() {
+	public String getReimb_resolved() {
 		return reimb_resolved;
 	}
-	public void setReimb_resolved(Date reimb_resolved) {
+	public void setReimb_resolved(String reimb_resolved) {
 		this.reimb_resolved = reimb_resolved;
 	}
 	public String getReimb_description() {
@@ -159,6 +184,14 @@ public class Ticket {
 	}
 	public void setReimb_type(String reimb_type) {
 		this.reimb_type = reimb_type;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	

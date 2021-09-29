@@ -30,6 +30,12 @@ public class LoginController {
 			
 			HttpSession session = ctx.req.getSession();
 			session.setAttribute("username",LDTO.getUsername());
+			System.out.println(session.getAttribute("username"));
+			if(ls.checkManager(LDTO.getUsername())) {
+				session.setAttribute("manager",true);}
+			else {
+				session.setAttribute("manager", false);
+			}
 			//successful status code
 			ctx.status(200);
 			ctx.result("Login Success, JWT is: "+ jwt);

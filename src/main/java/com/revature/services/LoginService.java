@@ -11,4 +11,8 @@ public class LoginService {
 		return ld.validateLogin(username, password);
 		
 	}
+	
+	public boolean checkManager(String username) {
+		return ld.checkManager(username);
+	}
 }
